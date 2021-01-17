@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using SWAPI.TASK.WebUI.Models;
 
 namespace SWAPI.TASK.WebUI.Controllers
@@ -18,9 +20,14 @@ namespace SWAPI.TASK.WebUI.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public Task<IActionResult> Index()
         {
-            return View();
+            HomeViewModel model = new HomeViewModel();
+            string url = $"https://swapi.dev/api/films/";
+            FilmDto filmDto = FetchSwapiData<FilmDto>(url);
+
+            model.FilmDto = filmDto;
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -32,6 +39,15 @@ namespace SWAPI.TASK.WebUI.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private static T1 FetchSwapiData<T1>(string url)
+        {
+            HttpClient client = new HttpClient();
+            var response = client.GetAsync(url).Result;
+            string content = response.Content.ReadAsStringAsync().Result;
+            var result = JsonConvert.DeserializeObject<T1>(content);
+            return result;
         }
     }
 }

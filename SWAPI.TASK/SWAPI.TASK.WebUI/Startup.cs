@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SWAPI.TASK.WebUI.Infrastructure.Repository;
+using SWAPI.TASK.WebUI.Interfaces;
 
 namespace SWAPI.TASK.WebUI
 {
@@ -24,6 +23,15 @@ namespace SWAPI.TASK.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddDbContext<SwapiDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SwapiDatabase")));
+
+            services.AddScoped<ISwapiDbContext, SwapiDbContext>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUserReviewRepository, UserReviewRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

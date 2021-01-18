@@ -15,12 +15,10 @@ namespace SWAPI.TASK.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUserReviewRepository _userReviewRepository;
 
-        public HomeController(ILogger<HomeController> logger, IUserReviewRepository userReviewRepository)
+        public HomeController(IUserReviewRepository userReviewRepository)
         {
-            _logger = logger;
             _userReviewRepository = userReviewRepository;
         }
 
@@ -43,16 +41,21 @@ namespace SWAPI.TASK.WebUI.Controllers
 
             List<UserReview> reviews = _userReviewRepository.GetMovieVotes(result.episode_id).Result;
             List<UserReviewDto> rewiesDto = new List<UserReviewDto>();
-            foreach (UserReview review in reviews)
+            
+            if(reviews != null)
             {
-                rewiesDto.Add(new UserReviewDto()
+                foreach (UserReview review in reviews)
                 {
-                    EpisodeId = review.EpisodeId,
-                    Url = review.Url,
-                    UserRating = review.UserRating,
-                    VoteDate = review.VoteDate
-                });
+                    rewiesDto.Add(new UserReviewDto()
+                    {
+                        EpisodeId = review.EpisodeId,
+                        Url = review.Url,
+                        UserRating = review.UserRating,
+                        VoteDate = review.VoteDate
+                    });
+                }
             }
+
             model.FilmReviewsDto = rewiesDto;
 
             return View(model);

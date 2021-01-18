@@ -6,8 +6,6 @@ namespace SWAPI.TASK.WebUI.DTO
     public class FilmDto
     {
         public int count { get; set; }
-        public object next { get; set; }
-        public object previous { get; set; }
         public List<FilmData> results { get; set; }
     }
 
@@ -19,11 +17,6 @@ namespace SWAPI.TASK.WebUI.DTO
         public string director { get; set; }
         public string producer { get; set; }
         public string release_date { get; set; }
-        public List<string> characters { get; set; }
-        public List<string> planets { get; set; }
-        public List<string> starships { get; set; }
-        public List<string> vehicles { get; set; }
-        public List<string> species { get; set; }
         public DateTime created { get; set; }
         public DateTime edited { get; set; }
         public string url { get; set; }

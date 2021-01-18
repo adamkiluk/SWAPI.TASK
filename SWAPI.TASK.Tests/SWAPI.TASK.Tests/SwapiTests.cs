@@ -2,10 +2,8 @@
 using Moq;
 using SWAPI.TASK.WebUI.Controllers;
 using SWAPI.TASK.WebUI.DTO;
-using SWAPI.TASK.WebUI.Infrastructure.Repository;
 using SWAPI.TASK.WebUI.Interfaces;
 using SWAPI.TASK.WebUI.Models;
-using System.Collections.Generic;
 using Xunit;
 
 namespace SWAPI.TASK.Tests
@@ -45,7 +43,5 @@ namespace SWAPI.TASK.Tests
             Assert.IsAssignableFrom<FilmDetailsDto>(model.FilmDetailsDto);
             Assert.Equal(url, model.FilmDetailsDto.url);
         }
-
-        //Fetch_Swapi_Films_Endpoint_Should_Return_Correct_Response()
     }
 }

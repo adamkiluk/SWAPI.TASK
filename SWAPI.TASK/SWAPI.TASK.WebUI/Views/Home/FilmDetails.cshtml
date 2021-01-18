@@ -1,0 +1,89 @@
+﻿@model SWAPI.TASK.WebUI.Models.FilmDetailsViewModel;
+@{
+    ViewData["Title"] = "MovieDetails";
+}
+@using (Html.BeginForm("SendVoteValue", "Home", new { Model.FilmDetailsDto.url, Model.SelectedUserVote, Model.FilmDetailsDto.episode_id }, FormMethod.Post))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm  p-2 m-0">
+                <p>Created: </p>
+            </div>
+            <div class="col-sm  p-2 m-0">
+                <p>@Html.DisplayFor(x => x.FilmDetailsDto.created)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm  p-2 m-0">
+                <p>Edited: </p>
+            </div>
+            <div class="col-sm  p-2 m-0">
+                <p>@Html.DisplayFor(x => x.FilmDetailsDto.edited)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm  p-2 m-0">
+                <p>Director: </p>
+            </div>
+            <div class="col-sm  p-2 m-0">
+                <p>@Html.DisplayFor(x => x.FilmDetailsDto.director)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm  p-2 m-0">
+                <p>Producer: </p>
+            </div>
+            <div class="col-sm  p-2 m-0">
+                <p>@Html.DisplayFor(x => x.FilmDetailsDto.producer)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm  p-2 m-0">
+                <p>Title: </p>
+            </div>
+            <div class="col-sm  p-2 m-0">
+                <p>@Html.DisplayFor(x => x.FilmDetailsDto.title)</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm  p-2 m-0">
+                <p>URL: </p>
+            </div>
+            <div class="col-sm  p-2 m-0">
+                <p>@Html.DisplayFor(x => x.FilmDetailsDto.url)</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <h5>How mutch do you love that movie?</h5>
+        <div>@Html.DropDownListFor(m => m.SelectedUserVote, Enumerable.Range(1, 10).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }))</div>
+    </div>
+    <div class="col-sm  p-2 m-0">
+        <input type="submit" value="Vote" />
+    </div>
+}
+@if (Model.FilmReviewsDto.Count > 0)
+{
+    <div>
+        <h5>Vote history:</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Vote rating</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.FilmReviewsDto.Select((value, index) => (value, index)))
+                {
+                    <tr>
+                        <th scope="row">@item.index</th>
+                        <td>@item.value.UserRating</td>
+                        <td>@item.value.VoteDate</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

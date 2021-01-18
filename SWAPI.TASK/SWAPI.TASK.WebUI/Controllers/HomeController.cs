@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using SWAPI.TASK.WebUI.DTO;
 using SWAPI.TASK.WebUI.Models;
 
 namespace SWAPI.TASK.WebUI.Controllers
@@ -20,7 +21,7 @@ namespace SWAPI.TASK.WebUI.Controllers
             _logger = logger;
         }
 
-        public Task<IActionResult> Index()
+        public IActionResult Index()
         {
             HomeViewModel model = new HomeViewModel();
             string url = $"https://swapi.dev/api/films/";

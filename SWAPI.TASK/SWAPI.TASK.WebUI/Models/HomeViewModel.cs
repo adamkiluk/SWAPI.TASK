@@ -1,4 +1,6 @@
-﻿namespace SWAPI.TASK.WebUI.Models
+﻿using SWAPI.TASK.WebUI.DTO;
+
+namespace SWAPI.TASK.WebUI.Models
 {
     public class HomeViewModel
     {

@@ -1,8 +1,28 @@
-﻿@{
+﻿@model SWAPI.TASK.WebUI.Models.HomeViewModel;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Vote for your favorite Star Wars movie!</h1>
+</div>
+
+<div class="text-center">
+    @foreach (var item in Model.FilmDto.results)
+    {
+        @using (Html.BeginForm("FilmDetails", "Home", FormMethod.Get))
+        {
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm  p-2 m-0">
+                        <h5>@Html.DisplayFor(x => item.title)</h5>
+                    </div>
+                    <div class="col-sm  p-2 m-0">
+                        <button class="btn btn-primary" type="submit">Vote</button>
+                        <input asp-for="url" value="@item.url" type="hidden" />
+                    </div>
+                </div>
+            </div>
+        }
+    }
 </div>

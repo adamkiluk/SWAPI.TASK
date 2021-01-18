@@ -16,4 +16,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SWAPI.TASK\SWAPI.TASK.WebUI\SWAPI.TASK.WebUI.csproj" />
+  </ItemGroup>
 </Project>
